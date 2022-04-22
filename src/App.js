@@ -1,8 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
+import NavBar from './componentes/NavBar';
+import ItemListContainer from './componentes/ItemListContainer';
+import carrito from './carrito.png'
 
 function App() {
   return (
+    /*
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
@@ -18,7 +22,13 @@ function App() {
           Learn React
         </a>
       </header>
-    </div>
+    </div>*/
+    <>
+      <img src={carrito} className="App-logo" alt="logo" />
+      <NavBar item1 ='Pantalon' item2='Remera' item3='Campera'></NavBar>
+      <ItemListContainer></ItemListContainer>
+    </>
+
   );
 }
 
