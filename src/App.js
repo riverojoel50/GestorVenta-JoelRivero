@@ -2,7 +2,6 @@ import logo from './logo.svg';
 import './App.css';
 import NavBar from './componentes/NavBar';
 import ItemListContainer from './componentes/ItemListContainer';
-import carrito from './carrito.png'
 
 function App() {
   return (
@@ -24,9 +23,8 @@ function App() {
       </header>
     </div>*/
     <>
-      <img src={carrito} className="App-logo" alt="logo" />
-      <NavBar item1 ='Pantalon' item2='Remera' item3='Campera'></NavBar>
-      <ItemListContainer></ItemListContainer>
+      <NavBar/>
+      <ItemListContainer mensaje="Hola, Bienvenido a Gestion de Venta"/>
     </>
 
   );
