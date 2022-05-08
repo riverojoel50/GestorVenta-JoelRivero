@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
-import { getArticulos } from "../utils/getArticulos"
 import ItemList from "./ItemList";
-/*
-const ItemListContainer = (props) => {
-    return (
-        <>
-            <h1>{props.mensaje}</h1>
-        </>
-    );
-}*/
+import {articulos as articulosData} from "../data/articulos"
 
 const ItemListContainer = () => {
     const [articulos, setArticulos] = useState([]);
 
     useEffect(() =>{
-        getArticulos()
+        console.log("Cargando Articulos..")
+
+        const getArticulos = new Promise((resolve,reject) =>{
+            setTimeout(() =>{
+                resolve(articulosData)
+            },0);
+        });
+
+        getArticulos
             .then((result) => setArticulos(result))
-            .catch((error) => console.log(error));
+            .catch((error) => console.log(error))
     },[]);
 
 
