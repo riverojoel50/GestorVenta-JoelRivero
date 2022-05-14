@@ -7,9 +7,11 @@ const ItemDetailContainer = () => {
     const {articuloId} = useParams()
     const [articulo, SetArticuloData] = useState( {} )
     
+    
     useEffect( () => {
         (async () => {
             const articuloData = await getArticuloDetalle();
+
             if (articuloData) {
                 SetArticuloData(articuloData);
             }
@@ -24,8 +26,6 @@ const ItemDetailContainer = () => {
         })
     }
     
-    {console.log(articuloId)}
-
     return(
         <ItemDetail name={articulo.name} precio={articulo.precio} imgUrl={articulo.imgUrl} id={articulo.id}/>
     );

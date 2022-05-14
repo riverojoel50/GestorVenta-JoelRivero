@@ -1,23 +1,30 @@
 import { useEffect, useState } from "react";
 import ItemList from "./ItemList";
 import {articulos as articulosData} from "../data/articulos"
+import { useParams } from "react-router-dom";
 
 const ItemListContainer = () => {
+    const {categoriaId} = useParams()
     const [articulos, setArticulos] = useState([]);
 
     useEffect(() =>{
-        console.log("Cargando Articulos..")
+        (async () => {
+            const articuloCategoria = await getArticulos();
 
-        const getArticulos = new Promise((resolve,reject) =>{
-            setTimeout(() =>{
-                resolve(articulosData)
-            },0);
-        });
+            if(articuloCategoria)
+                setArticulos(articuloCategoria);
+        })()
 
-        getArticulos
-            .then((result) => setArticulos(result))
-            .catch((error) => console.log(error))
-    },[]);
+    },[categoriaId]);
+
+    const getArticulos = () => {
+        {console.log(categoriaId)}
+        return new Promise((resolve) =>{
+             setTimeout(() =>{
+                 resolve( categoriaId ? articulosData.filter((cat) => cat.categoria == categoriaId) : articulosData)
+             },1000);
+         });
+     } 
 
 
     return(

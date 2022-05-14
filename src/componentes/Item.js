@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 
 const Item = (props) => {
     return(
-        <div className="item">
+        <div className="item" key={props.id}>
+            {console.log(`/detalles/${props.id}`)}
             <Link to={`/detalles/${props.id}`}>
                 <h2>{props.name}</h2>
             </Link>
