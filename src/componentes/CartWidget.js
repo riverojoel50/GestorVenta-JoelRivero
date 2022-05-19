@@ -1,7 +1,6 @@
 let styleImage = {
-    display: "inline-block",
-    width:"40px",
-    height:"40px"
+    width:"130px",
+    height:"110px"
 }
 
 const CartWidget = (props) => {

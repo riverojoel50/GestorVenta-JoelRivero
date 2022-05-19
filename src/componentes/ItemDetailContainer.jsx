@@ -12,9 +12,9 @@ const ItemDetailContainer = () => {
         (async () => {
             const articuloData = await getArticuloDetalle();
 
-            if (articuloData) {
+            if (articuloData) 
                 SetArticuloData(articuloData);
-            }
+            
         })()
     }, [articuloId]);
     
@@ -27,8 +27,9 @@ const ItemDetailContainer = () => {
     }
     
     return(
-        <ItemDetail name={articulo.name} precio={articulo.precio} imgUrl={articulo.imgUrl} id={articulo.id}/>
-    );
+
+        <ItemDetail name={articulo.name} precio={articulo.precio} imgUrl={articulo.imgUrl} id={articuloId}/>
+    )
 }
 
 export default ItemDetailContainer

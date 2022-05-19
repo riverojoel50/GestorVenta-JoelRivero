@@ -1,20 +1,36 @@
 import CartWidget from "./CartWidget";
-import carrito from "../assets/img/carrito.png"
+import logoPagina from "../assets/img/logo.png"
+import logoCarrito from "../assets/img/logoCarrito.png"
 import { Link } from "react-router-dom";
+import "../assets/style/Navbar.css"
 
-const NavBar = (props) => {
+
+let item = {
+    margin: '0px 10px'
+}
+
+const NavBar = () => {
     return (
-        <>
-            <CartWidget urlImage={carrito}/>
-            <h1>Mi listado</h1>
-            <nav className="navbar">
-                <Link to={`/categoria/Hombre`}><p className="font-red"> Hombre</p></Link>
-                <Link to={`/categoria/Mujer`}><p className="font-red"> Mujer</p></Link>
-                <Link to={`/categoria/Bebe`}><p className="font-red"> Bebe</p></Link>
-            </nav>
-        </>
+        <div className="navbar">
+            <div className="navbar-left">
+                <CartWidget urlImage={logoPagina}/>
+            </div>
+            <div className="navbar-medium">
+                <nav>
+                    <Link to={`/categoria/Hombre`} style={item}> Hombre</Link>
+                    <Link to={`/categoria/Mujer`} style={item} >Mujer</Link>
+                    <Link to={`/categoria/Bebe`} style={item} > Bebe</Link>
+                </nav>
+            </div>
+            <div className="navbar-right">
+                <CartWidget urlImage={logoCarrito}/>
+            </div>
+        </div>
+        
     );
 }
 
 
 export default NavBar
+
+

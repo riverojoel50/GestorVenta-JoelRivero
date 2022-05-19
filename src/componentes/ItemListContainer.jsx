@@ -7,6 +7,7 @@ const ItemListContainer = () => {
     const {categoriaId} = useParams()
     const [articulos, setArticulos] = useState([]);
 
+    
     useEffect(() =>{
         (async () => {
             const articuloCategoria = await getArticulos();

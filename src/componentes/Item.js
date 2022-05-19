@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 const Item = (props) => {
+
     return(
         <div className="item" key={props.id}>
             {console.log(`/detalles/${props.id}`)}
@@ -10,7 +11,6 @@ const Item = (props) => {
             <img src={props.imgUrl} alt={props.name}/>
             <h3>{props.precio}</h3>
         </div>
-
     );
 }
 
