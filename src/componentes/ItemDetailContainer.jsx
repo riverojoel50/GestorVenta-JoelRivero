@@ -5,15 +5,18 @@ import ItemDetail from "./ItemDetail"
 
 const ItemDetailContainer = () => {
     const {articuloId} = useParams()
-    const [articulo, SetArticuloData] = useState( {} )
+    const [articulo, SetArticuloData] = useState({})
+    const [loading, setLoading] = useState(true)
     
     
     useEffect( () => {
         (async () => {
             const articuloData = await getArticuloDetalle();
 
-            if (articuloData) 
+            if (articuloData){
                 SetArticuloData(articuloData);
+                setLoading(false) 
+            }
             
         })()
     }, [articuloId]);
@@ -27,8 +30,8 @@ const ItemDetailContainer = () => {
     }
     
     return(
-
-        <ItemDetail name={articulo.name} precio={articulo.precio} imgUrl={articulo.imgUrl} id={articuloId}/>
+        loading ? <h1>Cargando...</h1> :
+        <ItemDetail article={articulo}/>
     )
 }
 

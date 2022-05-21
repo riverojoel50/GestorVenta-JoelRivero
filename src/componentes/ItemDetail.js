@@ -1,37 +1,28 @@
-import { useContext } from "react";
-import { CartContext } from "../context/CartContext";
-import {articulos as articulosData} from "../data/articulos"
+import { useState } from "react";
+import { useCartContext } from "../context/CartContext";
+import ItemCount from "./ItemCount";
 import "../assets/style/ItemDetail.css"
+import { Link } from "react-router-dom";
 
 const ItemDetail = (props) => {
-    const { addItem, isInCart } = useContext(CartContext)
+    const { addItem, isInCart } = useCartContext();
+    const [isinCart, setIsInCart] = useState(false);
 
-    const addCart = () => {
-        
-        if (!isInCart(props.id))
-        {
-            console.log("Resultado IsnInCart: " + isInCart(props.id))
-            const cantidadArticulo = prompt("ingrese cantidad");
-            const articulo = getArticulo();
-            
-            addItem(articulo,cantidadArticulo)
-        }
-        else   
-            alert("El articulo ya se encuentra en el carrito")
-    }
-
-    const getArticulo = () => {
-        return articulosData.find(p => p.id == props.id)
+    const onAdd = (count) => {
+        setIsInCart(true)
+        addItem(props.article,count)
     }
 
     return(
 
         <div className="item">
             <h2>Articulo</h2>
-            <h2>{props.name}</h2>
-            <img src={props.imgUrl} alt={props.name}/>
-            <h3>{props.precio}</h3>
-            <button onClick={addCart}>Comprar</button>
+            <h2>{props.article.name}</h2>
+            <img src={props.article.imgUrl} alt={props.article.name}/>
+            <h3>{props.article.precio}</h3>
+            
+            {!isinCart ? <ItemCount onAdd={onAdd} article={props.article} value={1}></ItemCount> : <Link to={`/cart`}> Terminar Compra</Link>}
+
         </div>
     );
 }

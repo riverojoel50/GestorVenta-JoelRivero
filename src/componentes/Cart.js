@@ -1,17 +1,31 @@
-import { useContext } from "react"
+import { useCartContext } from "../context/CartContext";
 
 const Cart = () => {
-    const {cart} = useContext
+    const {cart} = useCartContext();
 
     return (
-        cart.Map((oneCart) => {
-            <div class = "article">
-                <h2>{oneCart.articuloDetalle.name}</h2>
-                <img src={oneCart.imgUrl} alt={oneCart.name}></img>
-                <p>{oneCart.cantidad}</p>
-                <p>{oneCart.cantidad * oneCart.articuloDetalle.precio}</p>
-            </div>
-        })
+        <div>
+
+            <h1>Carrito</h1>
+            {console.log(cart)}
+            {/* {cart.map((oneCart) => {
+                <div>
+                    <h1>asd</h1>
+                    <h2>{oneCart.name}</h2>
+                    <img src={oneCart.imgUrl} alt={oneCart.name}></img>
+                    <p>{oneCart.cantidad}</p>
+                    <p>{oneCart.cantidad * oneCart.precio}</p>
+                </div>
+            })} */
+             cart.forEach((element) => {
+                 <div>
+                    <h1>asd</h1>
+                    <h2>{element.name}</h2>
+                    <img src={element.imgUrl} alt={element.name}></img>
+                 </div>
+                })
+            }
+        </div>
     );
 }
 

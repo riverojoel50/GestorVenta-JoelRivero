@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 export const CartContext = createContext({
     cart:[], //valor default
@@ -9,23 +9,27 @@ export const CartContext = createContext({
 })
 
 
-
+export const useCartContext = () => useContext(CartContext)
 
 const CartProvider = ({ children }) => {
     const [cart,setCart] = useState([]) 
 
-    const addItem = (articulo,cantidadArticulo) => {
+    const addItem = (article,cantidadArticulo) => {
+        console.table(article)
+        console.table(cart)
+        const itemToCart = {...article, cantidadCompra: cantidadArticulo}
 
-        const cartDetalle = {
-            articuloDetalle: articulo,
-            cantidad: cantidadArticulo
-        }
+        isInCart(article.id) === false && setCart( currentCart => { return [...currentCart, itemToCart] })
+        // const cartDetalle = {
+        //     articuloDetalle: articulo,
+        //     cantidad: cantidadArticulo
+        // }
         
         // const newCart = cart.push(cartDetalle)
 
-        setCart( currentCart => {
-            return currentCart.concat(cartDetalle)
-        })
+        // setCart( currentCart => {
+        //     return currentCart.concat(cartDetalle)
+        // })
     }
 
     const removeItem = (id_articulo) => {
@@ -43,13 +47,14 @@ const CartProvider = ({ children }) => {
     }
 
     const isInCart = (id_articulo) => {
-        for(const oneCart of cart){
-            console.table(oneCart.articuloDetalle.id)
-            if(oneCart.articuloDetalle.id == id_articulo)
-                return true
-        }
 
-        return false
+        return cart.some((p) => p.id === id_articulo)
+
+        // for(const oneCart of cart){
+        //     console.table(oneCart.articuloDetalle.id)
+        //     if(oneCart.articuloDetalle.id == id_articulo)
+        //         return true
+        // }
     }
 
     return (
