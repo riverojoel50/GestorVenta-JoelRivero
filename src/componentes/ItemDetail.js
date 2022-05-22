@@ -5,7 +5,7 @@ import "../assets/style/ItemDetail.css"
 import { Link } from "react-router-dom";
 
 const ItemDetail = (props) => {
-    const { addItem, isInCart } = useCartContext();
+    const { addItem } = useCartContext();
     const [isinCart, setIsInCart] = useState(false);
 
     const onAdd = (count) => {

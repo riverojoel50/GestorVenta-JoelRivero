@@ -15,27 +15,16 @@ const CartProvider = ({ children }) => {
     const [cart,setCart] = useState([]) 
 
     const addItem = (article,cantidadArticulo) => {
-        console.table(article)
-        console.table(cart)
         const itemToCart = {...article, cantidadCompra: cantidadArticulo}
 
         isInCart(article.id) === false && setCart( currentCart => { return [...currentCart, itemToCart] })
-        // const cartDetalle = {
-        //     articuloDetalle: articulo,
-        //     cantidad: cantidadArticulo
-        // }
-        
-        // const newCart = cart.push(cartDetalle)
 
-        // setCart( currentCart => {
-        //     return currentCart.concat(cartDetalle)
-        // })
     }
 
     const removeItem = (id_articulo) => {
-        console.table(cart)
         for(const oneCart of cart){
-            if(oneCart.articulo.id_articulo == id_articulo)
+            if(oneCart.id == id_articulo)
+                console.log(cart.indexOf(oneCart))
                 setCart(cart.splice(cart.indexOf(oneCart), 1))
         }
 
@@ -47,18 +36,11 @@ const CartProvider = ({ children }) => {
     }
 
     const isInCart = (id_articulo) => {
-
         return cart.some((p) => p.id === id_articulo)
-
-        // for(const oneCart of cart){
-        //     console.table(oneCart.articuloDetalle.id)
-        //     if(oneCart.articuloDetalle.id == id_articulo)
-        //         return true
-        // }
     }
 
     return (
-        <CartContext.Provider value={{cart, addItem, isInCart}}>
+        <CartContext.Provider value={{cart, addItem, isInCart, removeItem}}>
             {children}
         </CartContext.Provider>
     )
