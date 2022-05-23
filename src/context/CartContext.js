@@ -22,13 +22,8 @@ const CartProvider = ({ children }) => {
     }
 
     const removeItem = (id_articulo) => {
-        for(const oneCart of cart){
-            if(oneCart.id == id_articulo)
-                console.log(cart.indexOf(oneCart))
-                setCart(cart.splice(cart.indexOf(oneCart), 1))
-        }
-
-        console.table(cart)
+        const itemRemoved = cart.filter( item => item.id !== id_articulo)
+        setCart(itemRemoved)
     }
 
     const clear = () => {
