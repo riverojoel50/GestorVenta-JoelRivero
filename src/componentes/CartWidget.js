@@ -1,23 +1,5 @@
 import { useCartContext } from "../context/CartContext";
-
-let styleImage = {
-    width:"130px",
-    height:"110px"
-}
-
-let contenedor = {
-    position: "relative",
-    display: "inline-block",
-    textAlign: "center"
-}
-
-let cantidadItem = {
-    position: "absolute",
-    top: "10px",
-    left: "10px",
-    fontSize: "30px",
-    color: "red"
-}
+import { Link } from "react-router-dom";
 
 const CartWidget = (props) => {
     const { cart } = useCartContext();
@@ -26,12 +8,35 @@ const CartWidget = (props) => {
         return cart.length
     }
 
+    const sumPrecio = () => {
+        let sumPrecioTotal = 0;
+
+        cart.map(item => (sumPrecioTotal += item.precio * item.cantidadCompra))
+
+        return sumPrecioTotal;
+    }
+
     return(
-        <div style={contenedor}>
-            <img style={styleImage} src={props.urlImage} alt="logo_navbar"/>
-            <div style={cantidadItem}>
-                {countCart() == 0 ? '' : countCart()}
-            </div>
+        <div className="dropdown dropdown-end">
+            <label tabIndex="0" className="btn btn-ghost btn-circle">
+                <div className="indicator">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                    {countCart() !== 0 && <span className="badge badge-sm indicator-item">{countCart()}</span>}
+                </div>
+            </label>
+
+            {countCart() !== 0 && 
+                <div tabIndex="0" className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
+                    <div className="card-body">
+                        <span className="font-bold text-lg">{countCart() + " Items" }</span>
+                        <span className="text-info">Subtotal: ${sumPrecio()}</span>
+                        <div className="card-actions">
+                            <button className="btn btn-primary btn-block"><Link to={`/cart`}> Ver Carrito</Link></button>
+                            
+                        </div>
+                    </div>
+                </div>   
+            }     
         </div>
     )
 }

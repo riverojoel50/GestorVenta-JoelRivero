@@ -1,5 +1,12 @@
 import { useState } from "react"
 
+let spantCount = {
+    width: "50px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+}
+
 const ItemCount = (props) => {
     const [count, setCount] = useState(props.value)
 
@@ -14,12 +21,15 @@ const ItemCount = (props) => {
     return (
         <div>
             <p>Cantidad:</p>
-            <button onClick={subtractOne}>-</button>
-            <span> {count} </span>
-            <button onClick={addCount}>+</button>
+
+            <div className="btn-group">
+                <button onClick={subtractOne} className="btn">-</button>
+                <span style={spantCount}> {count} </span>
+                <button onClick={addCount}className="btn">+</button>
+            </div>
             <br/>
-            <br/>
-            <button onClick={ () => props.onAdd(count)}>Agregar Carrito</button>
+            {/* <button onClick={ () => props.onAdd(count)}>Agregar Carrito</button> */}
+            <button className="btn btn-primary" onClick={ () => props.onAdd(count)} >Agregar Carrito</button>
 
         </div>
     )
