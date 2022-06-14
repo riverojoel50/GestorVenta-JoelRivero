@@ -1,10 +1,10 @@
-import { clear } from "@testing-library/user-event/dist/clear";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useCartContext } from "../context/CartContext";
 import { CreateOrder } from "../data/firebase/firebase";
 
 const Cart = () => {
-    const { cart, removeItem } = useCartContext();
+    const { cart, removeItem,clear } = useCartContext();
     const [ saveOrder, setSaveOrder ] = useState(false);
     const componentsImages = require.context("../assets/img", true);
 
@@ -30,9 +30,9 @@ const Cart = () => {
             total: sumPrecio()
         }
 
-        CreateOrder(oneListBuy);
-        setSaveOrder(true);
-        //clearCart();
+        CreateOrder(oneListBuy)
+        setSaveOrder(true)
+        clear()
     }
 
     const itemCart = cart.map(item => (
@@ -59,9 +59,17 @@ const Cart = () => {
 
     return (
             <div>
-                { isEmptyCart() ? <h1>Carrito Vacio...</h1> : itemCart }
+                { isEmptyCart() ? <button className="btn btn-block" style={{margin:"0px 5px"}}><Link to={`/`}>Continuar Compra</Link></button> : itemCart }
 
-                {!saveOrder && <button className="btn" onClick={saveListBuy}>Realizar Compra!</button>}
+                {(!saveOrder && !isEmptyCart())  && 
+
+                <div style={{justifyContent: "center", display:"flex"}}>
+                    <button className="btn btn-wide" style={{margin:"0px 5px"}} onClick={saveListBuy}>Comprar</button>
+                    <div style={{height:"100%", fontSize:"x-large"}}>|</div>
+                    <button className="btn btn-wide" style={{margin:"0px 5px"}} onClick={clear}>Vaciar</button>
+                </div>
+                }
+                
             </div>
 
 

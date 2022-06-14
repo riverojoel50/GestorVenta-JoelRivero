@@ -27,7 +27,7 @@ const CartProvider = ({ children }) => {
     }
 
     const clear = () => {
-        setCart(cart.splice(0,cart.length))
+        setCart([])
     }
 
     const isInCart = (id_articulo) => {
@@ -35,7 +35,7 @@ const CartProvider = ({ children }) => {
     }
 
     return (
-        <CartContext.Provider value={{cart, addItem, isInCart, removeItem}}>
+        <CartContext.Provider value={{cart, addItem, isInCart, removeItem,clear}}>
             {children}
         </CartContext.Provider>
     )

@@ -22,7 +22,7 @@ const ItemListContainer = () => {
         {console.log(categoriaId)}
         return new Promise((resolve) =>{
              setTimeout(() =>{
-                 resolve( categoriaId ? articulosData.filter((cat) => cat.categoria == categoriaId) : articulosData)
+                 resolve( categoriaId ? articulosData.filter((cat) => cat.categoria === categoriaId) : articulosData)
              },1000);
          });
      } 
@@ -31,7 +31,6 @@ const ItemListContainer = () => {
     return(
         <>
             <h1>Listado Articulos</h1>
-            
             <ItemList Item={articulos} />
         
 
