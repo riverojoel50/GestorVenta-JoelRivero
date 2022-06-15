@@ -23,48 +23,57 @@ const ITEM = "items";
 const LIST_BUY = "listBuy";
 
 
-export  function CreateOrder(buyData) {
-    const newOrder = { ...buyData, date: Timestamp.now() };
+export function CreateOrder(buyData) {
+    const newOrder = { ...buyData, date: Timestamp.now() }
     
-    const listBuyCollection = collection(firestoreDB, LIST_BUY);
+    const listBuyCollection = collection(firestoreDB, LIST_BUY)
     addDoc(listBuyCollection, newOrder).then( (response) => {
-        console.log("Orden de compra Agregada: " + response.id);
+        console.log("Orden de compra Agregada: " + response.id)
     })
 
 }
 
+export async function GetAllArticle(){
+    const articleCollection = collection(firestoreDB, ITEM)
+    const articleDocs = await getDocs(articleCollection)
+
+    let articleArray = articleDocs.docs.map(doc => ({id: doc.id, ...doc.data()}))
+
+    return articleArray;
+}
+
 
 export async function GetAllOrders() {
-    const orderCollection = collection(firestoreDB, LIST_BUY);
-    const orderDocs = await getDocs(orderCollection);
+    const orderCollection = collection(firestoreDB, LIST_BUY)
+    const orderDocs = await getDocs(orderCollection)
 
-    let orderArray = orderDocs.docs.map(doc => ({id: doc.id, ...doc.data()}));
+    let orderArray = orderDocs.docs.map(doc => ({id: doc.id, ...doc.data()}))
     
     for (let i = 0; i < orderArray.length; i++) {
-        orderArray[i].date = (orderArray[i].date).toDate();
+        orderArray[i].date = (orderArray[i].date).toDate()
     }
 
     orderArray.sort(function (a, b) {
         if (a.date < b.date) {
-          return 1;
+          return 1
         }
         if (a.date > b.date) {
-          return -1;
+          return -1
         }
         return 0;
       });
 
-    return orderArray;
+    return orderArray
 }
 
 
 export async function GetOrderById(orderId = null) {
-    const orderCollection = collection(firestoreDB, LIST_BUY);
-    const orderRef = doc(orderCollection, orderId);
-    const orderDoc = await getDoc(orderRef);
+    const orderCollection = collection(firestoreDB, LIST_BUY)
+    const orderRef = doc(orderCollection, orderId)
+    const orderDoc = await getDoc(orderRef)
 
-    let order = {id: orderDoc.id, ...orderDoc.data()};
-    order.date = order.date.toDate();
+    let order = {id: orderDoc.id, ...orderDoc.data()}
+    order.date = order.date.toDate()
 
-    return order;
+    return order
 }
